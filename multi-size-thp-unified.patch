@@ -1,87 +1,86 @@
-From: Ryan Roberts <ryan.roberts@arm.com>
-Subject: [PATCH] mm: Multi-size THP for anonymous memory (Linux 6.8 backport)
-Date: $(date)
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: <TBD>
+Date: 2025-12-19
+Subject: [PATCH] Multi-size THP for anonymous memory (Linux 6.8) - unified backport patch for OLK-6.6
 
-This is a unified patch combining all commits related to the Multi-size THP
-(mTHP) feature introduced in Linux 6.8. This feature provides runtime opt-in
-support for transparent huge pages with multiple sizes for anonymous memory,
-improving performance by allocating larger chunks of memory during anonymous
-page faults.
+SUMMARY / INSTRUCTION HEADER (REQUIRED)
 
-Key features:
-- Support for multiple THP sizes (64KB, 128KB, 256KB, 512KB, 1MB, 2MB)
-- Runtime configuration through sysfs interface
-- Per-size THP allocation statistics
-- ARM64 contiguous PTE optimization
-- Deferred splitting of large folios
-- NUMA balancing support for multi-size THP
+This file is a *unified patch placeholder* and MUST be generated (not hand-authored) by:
 
-This patch is intended for backporting to OpenEuler 6.6 kernel.
+  1) Exporting *all upstream commits* that implement the FEATURED Linux 6.8 feature
+     "Multi-size THP for anonymous memory" from the upstream repository:
 
-Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Acked-by: Yu Zhao <yuzhao@google.com>
+         https://github.com/torvalds/linux
+
+     using the upstream version range:
+
+         v6.7..v6.8
+
+     The exported patch series must include every commit that is part of the feature
+     as merged for Linux v6.8 (including prerequisite/fixup commits that landed in
+     the same merge window and are required for correctness).
+
+  2) Comparing that upstream patch series against the OpenEuler kernel repository
+     and target branch:
+
+         OpenEuler kernel.git  branch: OLK-6.6
+
+     (i.e., compare what OLK-6.6 already contains vs. what upstream v6.8 contains).
+
+  3) Producing a single *unified* patch (this file) that reflects ONLY the missing
+     commits and/or minimal deltas needed to bring OLK-6.6 up to the upstream v6.8
+     implementation of "Multi-size THP for anonymous memory".
+
+In other words: this file should ultimately be the *net-new changes* required on
+OLK-6.6 for the feature, not a verbatim dump of upstream commits and not a
+re-implementation.
+
+Constraints:
+  - Keep the existing explanatory sections and diff stub below as-is.
+  - Do not remove the patch-like header format.
+  - Update/maintain this file by regenerating it from upstream + deltas, not by
+    editing the diff content by hand.
+
+TODOs (MUST BE FILLED DURING GENERATION)
+
+TODO(1): Exact upstream commit list included in this feature export
+  - Provide the full list of upstream commits (hash + subject), in the exact order
+    they are exported/applied.
+  - Confirm each commit exists in torvalds/linux and is within v6.7..v6.8.
+
+TODO(2): Commands used to generate the upstream patch series (git format-patch)
+  - Example template (replace with exact commands used):
+      git clone https://github.com/torvalds/linux.git
+      cd linux
+      git format-patch -o /tmp/ms-thp-anon v6.7..v6.8 -- <relevant paths>
+  - If additional commits outside pathspec are required, document why.
+
+TODO(3): Commands used to diff against OpenEuler OLK-6.6 (range-diff / cherry)
+  - Provide exact commands and results snippets for:
+      * git range-diff
+      * git cherry (or equivalent)
+  - Clearly indicate which commits are already present (or backported differently)
+    and which are missing.
+
+TODO(4): Conflict notes and required backports
+  - Record any conflicts encountered when applying missing commits onto OLK-6.6.
+  - List any additional prerequisite backports needed due to OLK-6.6 divergence.
+  - Document deviations from upstream (if any) and rationale.
 
 ---
 
-Summary of Changes:
-===================
-Core MM changes:
- - mm/huge_memory.c: Add multi-size THP allocation and management
- - mm/memory.c: Support multi-size THP in anonymous page fault path
- - mm/rmap.c: Handle deferred splitting for arbitrary large folios
- - mm/mprotect.c: Support NUMA balancing for multi-size THP
- - mm/shmem.c: Add large folio shmem support
- - mm/ksm.c: Add new KSM process and sysfs knobs
+(Keep existing explanatory sections below)
 
-Architecture-specific changes:
- - arch/arm64/mm/mmu.c: Wire up PTE_CONT for user mappings
- - arch/arm64/include/asm/pgtable.h: ARM64 contiguous PTE definitions
+[EXPLANATION PLACEHOLDER - DO NOT REMOVE]
 
-Include files:
- - include/linux/huge_mm.h: Multi-size THP interfaces and definitions
- - include/linux/ksm.h: KSM interface updates
+This patch is intended to unify the upstream "Multi-size THP for anonymous memory"
+feature backport effort into a single file that can be applied to the OpenEuler
+OLK-6.6 kernel branch.
 
-Documentation:
- - Documentation/admin-guide/mm/transhuge.rst: Multi-size THP documentation
+[DIFF STUB PLACEHOLDER - DO NOT REMOVE]
 
-Statistics:
- - Total files changed: ~15
- - Insertions: ~2500 lines
- - Deletions: ~300 lines
- - Net change: ~2200 lines
-
----
-
-
-diff --git a/Documentation/admin-guide/mm/transhuge.rst b/Documentation/admin-guide/mm/transhuge.rst
---- a/Documentation/admin-guide/mm/transhuge.rst
-+++ b/Documentation/admin-guide/mm/transhuge.rst
-@@ Documentation changes for multi-size THP support @@
-
-Note: This is a consolidated representation of the Multi-size THP feature.
-For the complete, detailed patches, please refer to the individual commits
-in the Linux kernel git repository between v6.7 and v6.8.
-
-To view the full commit history:
-  git log v6.7..v6.8 --author="Ryan Roberts" --grep="THP\|multi-size\|mTHP"
-
-Key commit areas:
-1. Core mTHP infrastructure and sysfs interface
-2. Allocation path modifications for variable-size THP
-3. Folio splitting and deferred splitting support
-4. Per-order allocation counters
-5. ARM64 contiguous PTE support
-6. NUMA balancing integration
-7. KSM updates for large folios
-8. Shmem large folio support
-9. Documentation updates
-10. Testing and debugging support
-
-For OpenEuler 6.6 integration:
-- Verify folio infrastructure compatibility
-- Check mm subsystem API compatibility
-- Test with OpenEuler-specific patches
-- Validate performance on target workloads
-- Review security implications
-
+diff --git a/PLACEHOLDER b/PLACEHOLDER
+index 0000000..0000000 100644
+--- a/PLACEHOLDER
++++ b/PLACEHOLDER
+@@ -0,0 +0,0 @@
