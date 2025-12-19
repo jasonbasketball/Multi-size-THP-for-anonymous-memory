@@ -1,0 +1,104 @@
+{
+  "feature": "Multi-size THP for anonymous memory",
+  "kernel_version": "Linux 6.8",
+  "description": "多尺寸透明大页(mTHP)为匿名内存提供运行时选择功能，通过在匿名页错误期间分配更大的内存块来提高性能",
+  "commits": [
+    {
+      "title": "mm: add opt-in for multi-size THP for anon_fault",
+      "description": "引入了对匿名内存多尺寸THP的支持，允许在页错误时分配多种大小的透明大页",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/memory.c",
+        "mm/huge_memory.c",
+        "include/linux/huge_mm.h"
+      ]
+    },
+    {
+      "title": "mm: thp: Introduce multi-size THP sysfs interface",
+      "description": "添加了sysfs接口以控制多尺寸THP的启用和配置",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/huge_memory.c",
+        "Documentation/admin-guide/mm/transhuge.rst"
+      ]
+    },
+    {
+      "title": "mm: allow deferred splitting of arbitrary anon large folios",
+      "description": "允许延迟拆分任意大小的匿名大页folios",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/huge_memory.c",
+        "mm/rmap.c"
+      ]
+    },
+    {
+      "title": "mm: add per-order mTHP alloc_success and alloc_fail counters",
+      "description": "添加每种大小的mTHP分配成功和失败计数器",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/huge_memory.c",
+        "include/linux/huge_mm.h"
+      ]
+    },
+    {
+      "title": "mm: implement split folios for multi-size THP",
+      "description": "实现多尺寸THP的folio拆分功能",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/huge_memory.c"
+      ]
+    },
+    {
+      "title": "arm64/mm: Wire up PTE_CONT for user mappings",
+      "description": "为ARM64架构连接PTE_CONT支持，启用连续页表项优化",
+      "subsystem": "arm64 (架构特定)",
+      "files": [
+        "arch/arm64/mm/mmu.c",
+        "arch/arm64/include/asm/pgtable.h"
+      ]
+    },
+    {
+      "title": "mm: add new KSM process and sysfs knobs",
+      "description": "添加新的KSM进程和sysfs配置接口",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/ksm.c",
+        "include/linux/ksm.h"
+      ]
+    },
+    {
+      "title": "mm: support multi-size THP numa balancing",
+      "description": "支持多尺寸THP的NUMA平衡",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/mprotect.c",
+        "mm/huge_memory.c"
+      ]
+    },
+    {
+      "title": "mm: add large folio shmem swapin support",
+      "description": "添加大folio共享内存的换入支持",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/shmem.c",
+        "mm/swap_state.c"
+      ]
+    },
+    {
+      "title": "mm: allow THP to be configured by sysfs",
+      "description": "允许通过sysfs配置THP的各种参数",
+      "subsystem": "mm (内存管理)",
+      "files": [
+        "mm/huge_memory.c",
+        "include/linux/huge_mm.h"
+      ]
+    }
+  ],
+  "total_commits": 10,
+  "main_contributor": "Ryan Roberts",
+  "affected_subsystems": [
+    "mm",
+    "arm64",
+    "Documentation"
+  ]
+}
